@@ -3,21 +3,18 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <PackageId>TermInfo</PackageId>
-    <Version>0.1</Version>
-    <Authors>Patrik Svensson</Authors>
+    <Authors>Patrik Svensson, Phil Scott</Authors>
+    <Nullable>enable</Nullable>
     <Product>TermInfo</Product>
     <Description>A library to read binary terminfo files.</Description>
-    <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
-    <PackageProjectUrl>https://github.com/patriksvensson/terminfo</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/patriksvensson/terminfo</RepositoryUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/spectreconsole/terminfo</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/spectreconsole/terminfo</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\..\LICENSE.md">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
+    <AdditionalFiles Include="..\stylecop.json" Link="Properties/stylecop.json" />
   </ItemGroup>
 
 </Project>

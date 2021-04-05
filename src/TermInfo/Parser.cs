@@ -38,6 +38,11 @@ namespace TermInfo
         private static string[] ReadNames(Stream stream, TermInfoHeader header)
         {
             var names = stream.ReadString(header.NameSectionLength);
+            if (names == null)
+            {
+                throw new InvalidOperationException("Could not read terminfo name section.");
+            }
+
             return names.Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
         }
 
@@ -86,11 +91,16 @@ namespace TermInfo
             return offsets;
         }
 
-        private static string[] ReadStrings(Stream stream, TermInfoHeader header, int[] offsets)
+        private static string?[] ReadStrings(Stream stream, TermInfoHeader header, int[] offsets)
         {
-           // Read strings
-            var strings = new string[offsets.Length];
+            // Read strings
+            var strings = new string?[offsets.Length];
             var table = stream.ReadString(header.StringTableLength);
+            if (table == null)
+            {
+                throw new InvalidOperationException("Could not read terminfo string table");
+            }
+
             for (var i = 0; i < offsets.Length; i++)
             {
                 if (offsets[i] != -1)

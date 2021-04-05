@@ -1,4 +1,3 @@
-using System;
 using Generator.Commands;
 using Spectre.Console.Cli;
 

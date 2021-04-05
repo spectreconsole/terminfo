@@ -4,9 +4,9 @@ using System.Text;
 
 namespace TermInfo
 {
-    public static class StreamExtensions
+    internal static class StreamExtensions
     {
-        public static string ReadString(this Stream stream, int count)
+        public static string? ReadString(this Stream stream, int count)
         {
             var buffer = new byte[count];
             var read = stream.Read(buffer, 0, count);

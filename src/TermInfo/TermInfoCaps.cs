@@ -9,8 +9,14 @@
 
 namespace TermInfo
 {
+    /// <summary>
+    /// Represents known terminfo capabilities.
+    /// </summary>
     public static class TermInfoCaps
     {
+        /// <summary>
+        /// Represents known boolean terminfo capabilities.
+        /// </summary>
         public enum Boolean
         {
             /// <summary>
@@ -234,6 +240,9 @@ namespace TermInfo
             ReturnDoesClrEol = 43,
         }
 
+        /// <summary>
+        /// Represents known numeric terminfo capabilities.
+        /// </summary>
         public enum Num
         {
             /// <summary>
@@ -432,6 +441,9 @@ namespace TermInfo
             NumberOfFunctionKeys = 38,
         }
 
+        /// <summary>
+        /// Represents known string terminfo capabilities.
+        /// </summary>
         public enum String
         {
             /// <summary>

@@ -1,4 +1,4 @@
-using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 
 namespace TermInfo
@@ -11,7 +11,7 @@ namespace TermInfo
         public int StringOffsetCount { get; set; }
         public int StringTableLength { get; set; }
 
-        public static bool TryRead(Stream stream, out TermInfoHeader header)
+        public static bool TryRead(Stream stream, [NotNullWhen(true)] out TermInfoHeader? header)
         {
             var magic = stream.ReadShort();
             if (magic != 282)

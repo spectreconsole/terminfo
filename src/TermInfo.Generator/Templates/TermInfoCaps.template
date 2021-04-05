@@ -9,8 +9,14 @@
 
 namespace TermInfo
 {
+    /// <summary>
+    /// Represents known terminfo capabilities.
+    /// </summary>
     public static class TermInfoCaps
     {
+        /// <summary>
+        /// Represents known boolean terminfo capabilities.
+        /// </summary>
         public enum Boolean
         {
             {{- for cap in capabilities.booleans }}
@@ -21,6 +27,9 @@ namespace TermInfo
             {{~ end ~}}
         }
 
+        /// <summary>
+        /// Represents known numeric terminfo capabilities.
+        /// </summary>
         public enum Num
         {
             {{- for cap in capabilities.nums }}
@@ -31,6 +40,9 @@ namespace TermInfo
             {{~ end ~}}
         }
 
+        /// <summary>
+        /// Represents known string terminfo capabilities.
+        /// </summary>
         public enum String
         {
             {{- for cap in capabilities.strings }}
