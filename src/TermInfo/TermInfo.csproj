@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <PackageId>TermInfo</PackageId>
+    <Version>0.1</Version>
+    <Authors>Patrik Svensson</Authors>
+    <Product>TermInfo</Product>
+    <Description>A library to read binary terminfo files.</Description>
+    <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+    <PackageProjectUrl>https://github.com/patriksvensson/terminfo</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/patriksvensson/terminfo</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\LICENSE.md">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>
