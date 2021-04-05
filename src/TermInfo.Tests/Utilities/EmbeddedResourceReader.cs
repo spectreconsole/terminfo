@@ -1,29 +1,9 @@
-using System;
+﻿using System;
 using System.IO;
 using System.Reflection;
-using Shouldly;
-using Xunit;
 
 namespace TermInfo.Tests
 {
-    public sealed class ParserTests
-    {
-        [Fact]
-        public void Should_Read_Terminfo_File()
-        {
-            // Given
-            var stream = EmbeddedResourceReader.LoadResourceStream("TermInfo.Tests/Data/xterm+256color");
-
-            // When
-            var info = TermInfoData.Read(stream);
-
-            // Then
-            info.MaxColors.ShouldBe(256);
-            info.AutoLeftMargin.ShouldBe(false);
-            info.OrigColors.ShouldBe("\u001b]104\a");
-        }
-    }
-
     public static class EmbeddedResourceReader
     {
         public static Stream LoadResourceStream(string resourceName)

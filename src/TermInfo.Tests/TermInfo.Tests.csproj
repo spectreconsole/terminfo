@@ -7,10 +7,12 @@
 
   <ItemGroup>
     <None Remove="Data\xterm+256color" />
+    <None Remove="Data\xterm+88color" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Data\xterm+256color" />
+    <EmbeddedResource Include="Data\xterm+88color" />
   </ItemGroup>
 
   <ItemGroup>
