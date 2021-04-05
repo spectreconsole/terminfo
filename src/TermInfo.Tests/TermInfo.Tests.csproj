@@ -32,7 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Terminfo\TermInfo.csproj" />
+    <ProjectReference Include="..\TermInfo\TermInfo.csproj" />
   </ItemGroup>
 
 </Project>
