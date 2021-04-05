@@ -10,7 +10,7 @@ if(!(Test-Path $Output -PathType Container)) {
 }
 
 # Generate the files
-Push-Location generator/Generator
+Push-Location (Join-Path $PSScriptRoot "/../src/TermInfo.Generator")
 &dotnet run "$Output" --input $Output
 if(!$?) { 
     Pop-Location
