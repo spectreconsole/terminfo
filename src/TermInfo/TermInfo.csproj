@@ -1,20 +1,26 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
-    <PackageId>TermInfo</PackageId>
-    <Authors>Patrik Svensson, Phil Scott</Authors>
+    <TargetFrameworks>net5.0;netstandard2.0</TargetFrameworks>
     <Nullable>enable</Nullable>
-    <Product>TermInfo</Product>
-    <Description>A library to read binary terminfo files.</Description>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageProjectUrl>https://github.com/spectreconsole/terminfo</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/spectreconsole/terminfo</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
   <ItemGroup>
     <AdditionalFiles Include="..\stylecop.json" Link="Properties/stylecop.json" />
   </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="TunnelVisionLabs.ReferenceAssemblyAnnotator" Version="1.0.0-alpha.160" PrivateAssets="all" />
+    <PackageDownload Include="Microsoft.NETCore.App.Ref" Version="[$(AnnotatedReferenceAssemblyVersion)]" />
+    <PackageReference Include="Nullable" Version="1.3.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <PropertyGroup>
+    <AnnotatedReferenceAssemblyVersion>3.0.0</AnnotatedReferenceAssemblyVersion>
+    <GenerateNullableAttributes>False</GenerateNullableAttributes>
+  </PropertyGroup>
 
 </Project>
