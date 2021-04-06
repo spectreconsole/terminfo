@@ -93,3 +93,6 @@ dotnet_diagnostic.SA1636.severity = none
 
 # CA1724: Namespace conflict
 dotnet_diagnostic.CA1724.severity = none
+
+# IDE0057: Use range operator
+csharp_style_prefer_range_operator = false

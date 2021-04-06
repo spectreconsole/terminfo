@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -6,11 +6,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Data\eterm-256color" />
+    <None Remove="Data\linux" />
+    <None Remove="Data\windows-ansi" />
     <None Remove="Data\xterm+256color" />
     <None Remove="Data\xterm+88color" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Data\eterm-256color" />
+    <EmbeddedResource Include="Data\linux" />
+    <EmbeddedResource Include="Data\windows-ansi" />
     <EmbeddedResource Include="Data\xterm+256color" />
     <EmbeddedResource Include="Data\xterm+88color" />
   </ItemGroup>

@@ -18,13 +18,17 @@
     <None Update="Templates\TermInfoCaps.template">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Templates\TermInfoData.Generated.template">
+    <None Update="Templates\TermInfoDesc.Generated.template">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 
   <ItemGroup>
     <AdditionalFiles Include="..\stylecop.json" Link="Properties/stylecop.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TermInfo\TermInfo.csproj" />
   </ItemGroup>
 
 </Project>

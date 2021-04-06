@@ -11,6 +11,7 @@ using Scriban;
 using Spectre.Console;
 using Spectre.Console.Cli;
 using Spectre.IO;
+using TermInfo;
 using SpectreEnvironment = Spectre.IO.Environment;
 
 namespace Generator.Commands
@@ -39,8 +40,8 @@ namespace Generator.Commands
         {
             var templates = new FilePath[]
             {
-                "Templates/TermInfoCaps.template",
-                "Templates/TermInfoData.Generated.template",
+                $"Templates/{nameof(TermInfoCaps)}.template",
+                $"Templates/{nameof(TermInfoDesc)}.Generated.template",
             };
 
             // Read all capabilities

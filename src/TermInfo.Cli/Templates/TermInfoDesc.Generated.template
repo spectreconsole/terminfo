@@ -1,6 +1,6 @@
 namespace TermInfo
 {
-    public sealed partial class TermInfoData
+    public sealed partial class TermInfoDesc
     {
         {{- for cap in capabilities.booleans }}
         /// <summary>

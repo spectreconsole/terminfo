@@ -10,8 +10,8 @@ if(!(Test-Path $Output -PathType Container)) {
 }
 
 # Generate the files
-Push-Location (Join-Path $PSScriptRoot "/../src/TermInfo.Generator")
-&dotnet run "$Output" --input $Output
+Push-Location (Join-Path $PSScriptRoot "/../src/TermInfo.Cli")
+&dotnet run generate "$Output" --input $Output
 if(!$?) { 
     Pop-Location
     Throw "An error occured when generating code."
@@ -20,4 +20,4 @@ Pop-Location
 
 # Copy the files to the correct location
 Copy-Item  (Join-Path "$Output" "TermInfoCaps.cs") -Destination "$Source/TermInfoCaps.cs"
-Copy-Item  (Join-Path "$Output" "TermInfoData.Generated.cs") -Destination "$Source/TermInfoData.Generated.cs"
+Copy-Item  (Join-Path "$Output" "TermInfoDesc.Generated.cs") -Destination "$Source/TermInfoDesc.Generated.cs"

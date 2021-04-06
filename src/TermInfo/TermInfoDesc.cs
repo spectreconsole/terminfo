@@ -1,16 +1,13 @@
-using System;
-using System.IO;
-
 namespace TermInfo
 {
     /// <summary>
     /// Represents a parsed terminfo description.
     /// </summary>
-    public sealed partial class TermInfoData
+    public sealed partial class TermInfoDesc
     {
         private readonly string[] _names;
-        private readonly bool[] _booleans;
-        private readonly int[] _nums;
+        private readonly bool?[] _booleans;
+        private readonly int?[] _nums;
         private readonly string?[] _strings;
 
         /// <summary>
@@ -18,27 +15,21 @@ namespace TermInfo
         /// </summary>
         public string[] Names => _names;
 
-        internal TermInfoData(string[] names, bool[] booleans, int[] nums, string?[] strings)
+        /// <summary>
+        /// Gets the extended capabilities.
+        /// </summary>
+        public ExtendedCapabilities Extended { get; }
+
+        internal TermInfoDesc(
+            string[] names, bool?[] booleans, int?[] nums,
+            string?[] strings, ExtendedCapabilities? extended = null)
         {
             _names = names;
             _booleans = booleans;
             _nums = nums;
             _strings = strings;
-        }
 
-        /// <summary>
-        /// Reads terminfo description from a stream.
-        /// </summary>
-        /// <param name="stream">The stream to read from.</param>
-        /// <returns>The parsed terminfo description.</returns>
-        public static TermInfoData Read(Stream stream)
-        {
-            if (stream is null)
-            {
-                throw new ArgumentNullException(nameof(stream));
-            }
-
-            return Parser.Parse(stream);
+            Extended = extended ?? new ExtendedCapabilities();
         }
 
         /// <summary>
@@ -71,7 +62,7 @@ namespace TermInfo
             }
 
             var result = _nums[index];
-            if (result == -1)
+            if (result == null || result == -1)
             {
                 return null;
             }

@@ -1,6 +1,6 @@
 namespace TermInfo
 {
-    public sealed partial class TermInfoData
+    public sealed partial class TermInfoDesc
     {
         /// <summary>
         /// The auto_left_margin [auto_left_margin, bw] bool capability indicates cub 1 wraps from column 0 to last column.

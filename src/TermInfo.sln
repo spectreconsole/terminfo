@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TermInfo", "TermInfo\TermIn
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TermInfo.Tests", "TermInfo.Tests\TermInfo.Tests.csproj", "{4D5E6C3E-C7AC-426C-AABE-9C44B1834C93}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TermInfo.Generator", "TermInfo.Generator\TermInfo.Generator.csproj", "{7F1EFE12-88C8-493F-8FC7-C40488179D89}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TermInfo.Cli", "TermInfo.Cli\TermInfo.Cli.csproj", "{7F1EFE12-88C8-493F-8FC7-C40488179D89}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3D688222-B83C-4EDB-9ECD-C07CEC94FF2C}"
 	ProjectSection(SolutionItems) = preProject
