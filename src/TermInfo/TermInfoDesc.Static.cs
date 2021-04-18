@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 
 namespace TermInfo
@@ -8,6 +9,28 @@ namespace TermInfo
     public sealed partial class TermInfoDesc
     {
         /// <summary>
+        /// Tries to load the default terminfo description for the current terminal.
+        /// </summary>
+        /// <param name="result">
+        /// When this method returns, contains the terminfo description,
+        /// if the loading succeeded, or <c>null</c> if the loading  failed.
+        /// </param>
+        /// <returns><c>true</c> if the terminfo description was loaded successfully; otherwise, <c>false</c>.</returns>
+        public static bool TryLoad(out TermInfoDesc? result)
+        {
+            try
+            {
+                result = Load();
+                return result != null;
+            }
+            catch
+            {
+                result = null;
+                return false;
+            }
+        }
+
+        /// <summary>
         /// Loads the default terminfo description for the current terminal.
         /// </summary>
         /// <returns>The default terminfo description for the current terminal,
@@ -15,6 +38,34 @@ namespace TermInfo
         public static TermInfoDesc? Load()
         {
             return TermInfoLoader.Load();
+        }
+
+        /// <summary>
+        /// Tries to load the specified terminfo description for the current terminal.
+        /// </summary>
+        /// <param name="name">The terminfo name to load.</param>
+        /// <param name="result">
+        /// When this method returns, contains the terminfo description
+        /// if the loading succeeded, or <c>null</c> if the loading failed.
+        /// </param>
+        /// <returns><c>true</c> if the terminfo description was loaded successfully; otherwise, <c>false</c>.</returns>
+        public static bool TryLoad(string name, out TermInfoDesc? result)
+        {
+            if (name is null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+
+            try
+            {
+                result = Load(name);
+                return result != null;
+            }
+            catch
+            {
+                result = null;
+                return false;
+            }
         }
 
         /// <summary>
@@ -27,14 +78,37 @@ namespace TermInfo
         {
             if (name is null)
             {
-                throw new System.ArgumentNullException(nameof(name));
+                throw new ArgumentNullException(nameof(name));
             }
 
             return TermInfoLoader.Load(name);
         }
 
         /// <summary>
-        /// Reads terminfo description from a stream.
+        /// Tries to read a terminfo description from a stream.
+        /// </summary>
+        /// <param name="stream">The stream to read from.</param>
+        /// <param name="result">
+        /// When this method returns, contains the terminfo description
+        /// if the loading succeeded, or <c>null</c> if the loading failed.
+        /// </param>
+        /// <returns><c>true</c> if the terminfo description was loaded successfully; otherwise, <c>false</c>.</returns>
+        public static bool TryLoad(Stream stream, out TermInfoDesc? result)
+        {
+            try
+            {
+                result = Load(stream);
+                return result != null;
+            }
+            catch
+            {
+                result = null;
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Reads a terminfo description from a stream.
         /// </summary>
         /// <param name="stream">The stream to read from.</param>
         /// <returns>The parsed terminfo description.</returns>
