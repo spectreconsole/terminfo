@@ -96,7 +96,7 @@ namespace Generator.Commands
                 }
             }
 
-            AnsiConsole.Render(table);
+            AnsiConsole.Write(table);
         }
 
         private static void RenderExtendedCapabilitiesTable(TermInfoDesc desc)
@@ -149,7 +149,7 @@ namespace Generator.Commands
                 }
             }
 
-            AnsiConsole.Render(table);
+            AnsiConsole.Write(table);
         }
 
         private static TermInfoDesc LoadTermInfoDesc(Settings settings)
