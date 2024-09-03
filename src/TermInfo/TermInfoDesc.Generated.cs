@@ -858,12 +858,12 @@ namespace TermInfo
         public string KeyUp => GetString(TermInfoCaps.String.KeyUp);
 
         /// <summary>
-        /// The keypad_local [keypad_local, rmkx] string capability is the leave 'keyboard transmit' mode.
+        /// The keypad_local [keypad_local, rmkx] string capability is the leave keyboard transmit mode.
         /// </summary>
         public string KeypadLocal => GetString(TermInfoCaps.String.KeypadLocal);
 
         /// <summary>
-        /// The keypad_xmit [keypad_xmit, smkx] string capability is the enter 'keyboard transmit' mode.
+        /// The keypad_xmit [keypad_xmit, smkx] string capability is the enter keyboard transmit mode.
         /// </summary>
         public string KeypadXmit => GetString(TermInfoCaps.String.KeypadXmit);
 
@@ -1773,7 +1773,7 @@ namespace TermInfo
         public string ClearMargins => GetString(TermInfoCaps.String.ClearMargins);
 
         /// <summary>
-        /// The set_left_margin [set_left_margin, smgl] string capability is the set left soft margin at current column.
+        /// The set_left_margin [set_left_margin, smgl] string capability is the set left soft margin at current column not in bsd f itermcap f p.
         /// </summary>
         public string SetLeftMargin => GetString(TermInfoCaps.String.SetLeftMargin);
 

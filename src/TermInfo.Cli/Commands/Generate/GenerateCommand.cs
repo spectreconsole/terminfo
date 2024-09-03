@@ -160,12 +160,12 @@ namespace Generator.Commands
                 }
             }
 
-            throw new InvalidOperationException("Could not find 'ncurses-6.2/include/Caps'");
+            throw new InvalidOperationException($"Could not find '{CapsPath}'");
         }
 
-        private const string NCursesUrl = "https://ftp.gnu.org/pub/gnu/ncurses/ncurses-6.2.tar.gz";
-        private const string NCursesFilename = "ncurses-6.2.tar.gz";
-        private const string CapsPath = "ncurses-6.2/include/Caps";
+        private const string NCursesUrl = "https://ftp.gnu.org/pub/gnu/ncurses/ncurses-6.5.tar.gz";
+        private const string NCursesFilename = "ncurses-6.5.tar.gz";
+        private const string CapsPath = "ncurses-6.5/include/Caps";
 
         private async Task<Stream> FetchSourcePackage(Settings settings)
         {

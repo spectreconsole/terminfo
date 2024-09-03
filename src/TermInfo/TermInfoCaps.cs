@@ -887,12 +887,12 @@ namespace TermInfo
             KeyUp = 87,
 
             /// <summary>
-            /// The keypad_local [keypad_local, rmkx] string capability is the leave 'keyboard transmit' mode.
+            /// The keypad_local [keypad_local, rmkx] string capability is the leave keyboard transmit mode.
             /// </summary>
             KeypadLocal = 88,
 
             /// <summary>
-            /// The keypad_xmit [keypad_xmit, smkx] string capability is the enter 'keyboard transmit' mode.
+            /// The keypad_xmit [keypad_xmit, smkx] string capability is the enter keyboard transmit mode.
             /// </summary>
             KeypadXmit = 89,
 
@@ -1802,7 +1802,7 @@ namespace TermInfo
             ClearMargins = 270,
 
             /// <summary>
-            /// The set_left_margin [set_left_margin, smgl] string capability is the set left soft margin at current column.
+            /// The set_left_margin [set_left_margin, smgl] string capability is the set left soft margin at current column not in bsd f itermcap f p.
             /// </summary>
             SetLeftMargin = 271,
 

@@ -1,3 +1,5 @@
+#!/opt/homebrew/bin/pwsh
+
 ##########################################################
 # Script that generates known terminfo capabilities
 ##########################################################
