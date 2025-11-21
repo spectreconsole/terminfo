@@ -1,20 +1,17 @@
-using System;
+namespace TermInfo;
 
-namespace TermInfo
+internal static class SpanExtensions
 {
-    internal static class SpanExtensions
+    public static int FindNullTerminator(this Span<char> data, int start)
     {
-        public static int FindNullTerminator(this Span<char> data, int start)
+        for (var i = start; i < data.Length; i++)
         {
-            for (var i = start; i < data.Length; i++)
+            if (data[i] == '\0')
             {
-                if (data[i] == '\0')
-                {
-                    return i;
-                }
+                return i;
             }
-
-            return -1;
         }
+
+        return -1;
     }
 }

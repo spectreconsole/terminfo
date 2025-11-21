@@ -1,9 +1,8 @@
-namespace TermInfo
+namespace TermInfo;
+
+internal enum BitWidth
 {
-    internal enum BitWidth
-    {
-        OneByte = 8,
-        TwoBytes = 16,
-        FourBytes = 32,
-    }
+    OneByte = 8,
+    TwoBytes = 16,
+    FourBytes = 32,
 }

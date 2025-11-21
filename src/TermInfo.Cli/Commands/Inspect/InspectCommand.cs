@@ -3,163 +3,161 @@ using Spectre.Console;
 using Spectre.Console.Cli;
 using TermInfo;
 
-namespace Generator.Commands
+namespace Generator.Commands;
+
+public sealed class InspectCommand : Command<InspectCommand.Settings>
 {
-    public sealed class InspectCommand : Command<InspectCommand.Settings>
+    public sealed class Settings : CommandSettings
     {
-        public sealed class Settings : CommandSettings
+        [CommandOption("-n|--name <NAME>")]
+        public string? Name { get; set; }
+    }
+
+    public override int Execute(
+        CommandContext context, Settings settings,
+        CancellationToken cancellationToken)
+    {
+        var desc = LoadTermInfoDesc(settings);
+        if (desc == null)
         {
-            [CommandOption("-n|--name <NAME>")]
-            public string Name { get; set; }
+            AnsiConsole.WriteLine("Could not find terminfo file");
+            return -1;
         }
 
-        public override int Execute(CommandContext context, Settings settings)
+        var names = string.Join("[yellow],[/] ", desc.Names);
+        AnsiConsole.WriteLine();
+        AnsiConsole.MarkupLine($"[yellow]Names:[/] {names}");
+        AnsiConsole.MarkupLine($"[yellow]Extended caps:[/] {desc.Extended.Count}");
+        AnsiConsole.WriteLine();
+
+        if (desc.Extended.Count > 0)
         {
-            var desc = LoadTermInfoDesc(settings);
-            if (desc == null)
-            {
-                AnsiConsole.WriteLine("Could not find terminfo file");
-                return -1;
-            }
-
-            var names = string.Join("[yellow],[/] ", desc.Names);
-            AnsiConsole.WriteLine();
-            AnsiConsole.MarkupLine($"[yellow]Names:[/] {names}");
-            AnsiConsole.MarkupLine($"[yellow]Extended caps:[/] {desc.Extended.Count}");
-            AnsiConsole.WriteLine();
-
-            if (desc.Extended.Count > 0)
-            {
-                RenderExtendedCapabilitiesTable(desc);
-            }
-
-            RenderCapabilitiesTable(desc);
-
-            return 0;
+            RenderExtendedCapabilitiesTable(desc);
         }
 
-        private static void RenderCapabilitiesTable(TermInfoDesc desc)
+        RenderCapabilitiesTable(desc);
+
+        return 0;
+    }
+
+    private static void RenderCapabilitiesTable(TermInfoDesc desc)
+    {
+        var table = new Table();
+        table.Expand();
+        table.Title("[green]Default capabilities[/]");
+        table.AddColumns("Name", "Type", "Value");
+
+        foreach (int key in System.Enum.GetValues(typeof(TermInfoCaps.Num)))
         {
-            var table = new Table();
-            table.Expand();
-            table.Title("[green]Default capabilities[/]");
-            table.AddColumns("Name", "Type", "Value");
-
-            foreach (int key in System.Enum.GetValues(typeof(TermInfoCaps.Num)))
+            var value = desc.GetNum((TermInfoCaps.Num)key);
+            if (value != null)
             {
-                var value = desc.GetNum((TermInfoCaps.Num)key);
-                if (value != null)
-                {
-                    table.AddRow(
-                        "[yellow]" + ((TermInfoCaps.Num)key).ToString() + "[/]",
-                        "[grey]num[/]",
-                        value.ToString().EscapeMarkup());
-                }
+                table.AddRow(
+                    "[yellow]" + ((TermInfoCaps.Num)key).ToString() + "[/]",
+                    "[grey]num[/]",
+                    value.ToString().EscapeMarkup());
             }
+        }
 
-            foreach (int key in System.Enum.GetValues(typeof(TermInfoCaps.String)))
+        foreach (int key in System.Enum.GetValues(typeof(TermInfoCaps.String)))
+        {
+            var value = desc.GetString((TermInfoCaps.String)key);
+            if (value != null)
             {
-                var value = desc.GetString((TermInfoCaps.String)key);
-                if (value != null)
+                if (key == 38 || key == 39)
                 {
-                    if (key == 38 || key == 39)
+                    if (!Debugger.IsAttached)
                     {
-                        if (!Debugger.IsAttached)
-                        {
-                            //Debugger.Launch();
-                        }
+                        //Debugger.Launch();
                     }
-
-                    value = value.Replace("\u001b", "ESC")
-                        .Replace("\u000e", "")
-                        .Replace("\u000f", "")
-                        .Replace("\t", "\\t")
-                        .Replace("\r", "\\r")
-                        .Replace("\a", "\\a")
-                        .Replace("\n", "\\n");
-                    table.AddRow(
-                        "[yellow]" + ((TermInfoCaps.String)key).ToString().EscapeMarkup() + "[/]",
-                        "[grey]string[/]",
-                        value.EscapeMarkup());
                 }
-            }
 
-            foreach (int key in System.Enum.GetValues(typeof(TermInfoCaps.Boolean)))
-            {
-                var value = desc.GetBoolean((TermInfoCaps.Boolean)key);
-                if (value != null)
-                {
-                    table.AddRow(
-                        "[yellow]" + ((TermInfoCaps.Boolean)key).ToString() + "[/]",
-                        "[grey]boolean[/]",
-                        value.ToString().EscapeMarkup());
-                }
+                value = value.Replace("\u001b", "ESC")
+                    .Replace("\u000e", "")
+                    .Replace("\u000f", "")
+                    .Replace("\t", "\\t")
+                    .Replace("\r", "\\r")
+                    .Replace("\a", "\\a")
+                    .Replace("\n", "\\n");
+                table.AddRow(
+                    "[yellow]" + ((TermInfoCaps.String)key).ToString().EscapeMarkup() + "[/]",
+                    "[grey]string[/]",
+                    value.EscapeMarkup());
             }
-
-            AnsiConsole.Write(table);
         }
 
-        private static void RenderExtendedCapabilitiesTable(TermInfoDesc desc)
+        foreach (int key in System.Enum.GetValues(typeof(TermInfoCaps.Boolean)))
         {
-            var table = new Table();
-            table.Expand();
-            table.Title("[green]Extended capabilities[/]");
-            table.AddColumns("Name", "Type", "Value");
-
-            foreach (var key in desc.Extended.GetNames(TermInfoCapsKind.Num))
+            var value = desc.GetBoolean((TermInfoCaps.Boolean)key);
+            if (value != null)
             {
-                var value = desc.Extended.GetNum(key);
-                if (value != null)
-                {
-                    table.AddRow(
-                        "[yellow]" + key + "[/]",
-                        "[grey]num[/]",
-                        value.ToString().EscapeMarkup());
-                }
+                table.AddRow(
+                    "[yellow]" + ((TermInfoCaps.Boolean)key).ToString() + "[/]",
+                    "[grey]boolean[/]",
+                    value.ToString().EscapeMarkup());
             }
-
-            foreach (var key in desc.Extended.GetNames(TermInfoCapsKind.String))
-            {
-                var value = desc.Extended.GetString(key);
-                if (value != null)
-                {
-                    value = value.Replace("\u001b", "ESC")
-                        .Replace("\u000e", "")
-                        .Replace("\u000f", "")
-                        .Replace("\t", "\\t")
-                        .Replace("\r", "\\r")
-                        .Replace("\a", "\\a")
-                        .Replace("\n", "\\n");
-                    table.AddRow(
-                        "[yellow]" + key.EscapeMarkup() + "[/]",
-                        "[grey]string[/]",
-                        value.EscapeMarkup());
-                }
-            }
-
-            foreach (var key in desc.Extended.GetNames(TermInfoCapsKind.Boolean))
-            {
-                var value = desc.Extended.GetBoolean(key);
-                if (value != null)
-                {
-                    table.AddRow(
-                        "[yellow]" + key.EscapeMarkup() + "[/]",
-                        "[grey]boolean[/]",
-                        value.ToString().EscapeMarkup());
-                }
-            }
-
-            AnsiConsole.Write(table);
         }
 
-        private static TermInfoDesc LoadTermInfoDesc(Settings settings)
+        AnsiConsole.Write(table);
+    }
+
+    private static void RenderExtendedCapabilitiesTable(TermInfoDesc desc)
+    {
+        var table = new Table();
+        table.Expand();
+        table.Title("[green]Extended capabilities[/]");
+        table.AddColumns("Name", "Type", "Value");
+
+        foreach (var key in desc.Extended.GetNames(TermInfoCapsKind.Num))
         {
-            if (!string.IsNullOrWhiteSpace(settings.Name))
+            var value = desc.Extended.GetNum(key);
+            if (value != null)
             {
-                return TermInfoDesc.Load(settings.Name);
+                table.AddRow(
+                    "[yellow]" + key + "[/]",
+                    "[grey]num[/]",
+                    value.ToString().EscapeMarkup());
             }
-
-            return TermInfoDesc.Load();
         }
+
+        foreach (var key in desc.Extended.GetNames(TermInfoCapsKind.String))
+        {
+            var value = desc.Extended.GetString(key);
+            if (value != null)
+            {
+                value = value.Replace("\u001b", "ESC")
+                    .Replace("\u000e", "")
+                    .Replace("\u000f", "")
+                    .Replace("\t", "\\t")
+                    .Replace("\r", "\\r")
+                    .Replace("\a", "\\a")
+                    .Replace("\n", "\\n");
+                table.AddRow(
+                    "[yellow]" + key.EscapeMarkup() + "[/]",
+                    "[grey]string[/]",
+                    value.EscapeMarkup());
+            }
+        }
+
+        foreach (var key in desc.Extended.GetNames(TermInfoCapsKind.Boolean))
+        {
+            var value = desc.Extended.GetBoolean(key);
+            if (value != null)
+            {
+                table.AddRow(
+                    "[yellow]" + key.EscapeMarkup() + "[/]",
+                    "[grey]boolean[/]",
+                    value.ToString().EscapeMarkup());
+            }
+        }
+
+        AnsiConsole.Write(table);
+    }
+
+    private static TermInfoDesc? LoadTermInfoDesc(Settings settings)
+    {
+        return !string.IsNullOrWhiteSpace(settings.Name)
+            ? TermInfoDesc.Load(settings.Name)
+            : TermInfoDesc.Load();
     }
 }

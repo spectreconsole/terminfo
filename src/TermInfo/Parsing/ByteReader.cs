@@ -1,52 +1,51 @@
+namespace TermInfo;
+
 using System;
 using System.IO;
 
-namespace TermInfo
+internal sealed class ByteReader
 {
-    internal sealed class ByteReader
+    private readonly BinaryReader _reader;
+
+    public int Position { get; set; }
+
+    public ByteReader(Stream stream)
     {
-        private readonly BinaryReader _reader;
+        _reader = new BinaryReader(stream);
+    }
 
-        public int Position { get; set; }
+    public bool Eof()
+    {
+        return _reader.PeekChar() == -1;
+    }
 
-        public ByteReader(Stream stream)
+    public int ReadByte()
+    {
+        var result = _reader.Read();
+        if (result != -1)
         {
-            _reader = new BinaryReader(stream);
+            Position++;
         }
 
-        public bool Eof()
+        return result;
+    }
+
+    public byte[] ReadBytes(int count)
+    {
+        var buffer = new byte[count];
+        var read = Read(buffer, count);
+        if (read != count)
         {
-            return _reader.PeekChar() == -1;
+            throw new InvalidOperationException("Could not read the requested number of bytes.");
         }
 
-        public int ReadByte()
-        {
-            var result = _reader.Read();
-            if (result != -1)
-            {
-                Position++;
-            }
+        return buffer;
+    }
 
-            return result;
-        }
-
-        public byte[] ReadBytes(int count)
-        {
-            var buffer = new byte[count];
-            var read = Read(buffer, count);
-            if (read != count)
-            {
-                throw new InvalidOperationException("Could not read the requested number of bytes.");
-            }
-
-            return buffer;
-        }
-
-        public int Read(byte[] buffer, int count)
-        {
-            var result = _reader.Read(buffer, 0, count);
-            Position += result;
-            return result;
-        }
+    public int Read(byte[] buffer, int count)
+    {
+        var result = _reader.Read(buffer, 0, count);
+        Position += result;
+        return result;
     }
 }

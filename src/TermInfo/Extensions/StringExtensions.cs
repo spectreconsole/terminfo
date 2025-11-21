@@ -1,23 +1,22 @@
+namespace TermInfo;
+
 using System.Text;
 
-namespace TermInfo
+internal static class StringExtensions
 {
-    internal static class StringExtensions
+    public static string ReadNullTerminatedString(this string source, int offset)
     {
-        public static string ReadNullTerminatedString(this string source, int offset)
+        var accumulator = new StringBuilder();
+        for (var pos = offset; pos < source.Length; pos++)
         {
-            var accumulator = new StringBuilder();
-            for (var pos = offset; pos < source.Length; pos++)
+            if (source[pos] == '\0')
             {
-                if (source[pos] == '\0')
-                {
-                    break;
-                }
-
-                accumulator.Append(source[pos]);
+                break;
             }
 
-            return accumulator.ToString();
+            accumulator.Append(source[pos]);
         }
+
+        return accumulator.ToString();
     }
 }

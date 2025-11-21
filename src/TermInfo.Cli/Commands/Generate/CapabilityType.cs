@@ -1,9 +1,8 @@
-﻿namespace Generator.Commands
+﻿namespace Generator.Commands;
+
+public enum CapabilityType
 {
-    public enum CapabilityType
-    {
-        Bool,
-        Num,
-        String
-    }
+    Bool,
+    Num,
+    String
 }

@@ -1,0 +1,15 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Packages.props" />
+  </Folder>
+  <Project Path="TermInfo.Cli/TermInfo.Cli.csproj" />
+  <Project Path="TermInfo.Tests/TermInfo.Tests.csproj" />
+  <Project Path="TermInfo/TermInfo.csproj" />
+</Solution>
