@@ -131,7 +131,7 @@ public sealed class GenerateCommand : AsyncCommand<GenerateCommand.Settings>
     private async Task<string> ReadCapabilitiesString(Settings settings)
     {
         await using var gzip = new GZipStream(await FetchSourcePackage(settings), CompressionMode.Decompress);
-        using var reader = SharpCompress.Readers.Tar.TarReader.Open(gzip);
+        using var reader = SharpCompress.Readers.Tar.TarReader.OpenReader(gzip);
         while (reader.MoveToNextEntry())
         {
             if (reader.Entry.Key != CapsPath)
